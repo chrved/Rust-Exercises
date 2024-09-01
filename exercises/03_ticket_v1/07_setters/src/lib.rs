@@ -34,6 +34,28 @@ impl Ticket {
         }
     }
 
+    fn is_title_valid(val: &String) {
+        if val.is_empty() {
+            panic!("Title cannot be empty");
+        }
+        if val.len() > 50 {
+            panic!("Title cannot be longer than 50 bytes");
+        }
+    }
+    fn is_description_valid(val: &String) {
+        if val.is_empty() {
+            panic!("Description cannot be empty");
+        }
+        if val.len() > 500 {
+            panic!("Description cannot be longer than 500 bytes");
+        }
+    }
+    fn is_status_valid(val: &String) {
+        if val != "To-Do" && val != "In Progress" && val != "Done" {
+            panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed");
+        }
+    }
+
     pub fn title(&self) -> &String {
         &self.title
     }
@@ -44,6 +66,21 @@ impl Ticket {
 
     pub fn status(&self) -> &String {
         &self.status
+    }
+
+    pub fn set_title(&mut self, title: String)  {
+        Self::is_title_valid(&title);
+        self.title = title;
+    }
+
+    pub fn set_description(&mut self, description: String) {
+        Self::is_description_valid(&description);
+        self.description = description;
+    }
+
+    pub fn set_status(&mut self, status: String) {
+        Self::is_status_valid(&status);
+        self.status = status
     }
 }
 
